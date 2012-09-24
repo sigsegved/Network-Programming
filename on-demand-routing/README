@@ -1,0 +1,39 @@
+ASSIGNMENT 3
+GROUP 8
+Richard Meester
+Karthik Uthaman
+Shah Pavel Jamal
+
+Build instructions:
+      Unpack the contents into a directory, and type: make
+      This will create the various binaries associated with our project, subsequently they are located in the ./bin/ directory.
+      *note: all .c files are located in /src
+      	     all .h files are located in /inc
+	     all .o files are located in /obj
+	     all binaries are located in /bin
+
+To run:
+	   Once you have deployed the built binaries to the various virtual machines you need to do the following:
+      	   Start the ODR by using the following command: ODR <staleness>
+	   To create a server on a VM you need the following command: time_srv
+	   Then on each VM you can create clients by running the following: time_cli
+	   
+	   ODR and time_srv execution are not interactive and thus there is nothing else you need to do. In time_cli, however,
+	   you will be presented with a menu that allows you to select which virtual machine you would like to query for the time.
+	   Simple enter 1 - 10 and press enter. To exit enter 0.
+
+ODR:
+	   For our ODR we merely create a table indexed by the cannonical IP address of the host that we know routes to as well as 
+	   entries for the ODRs cannonical IP address. Each entry contains the number of hops, next hop, timestamp for when the route
+	   was last updated and the interface that was used to access it. To simplify our design we set up our table such that when a
+	   route is created, we set the next hop address to the address of the first reply we receive. The only time the next hop address
+	   might change is when the entry is stale and we need to rebroadcast a route request. 
+
+time_srv/time_cli:
+	For this part we built an API that would connect the ODR to the client/server. Ontop of the API requirements specified in 
+	assignment we needed to add our own to facilitate process registration with the ODR. The client creates its own Domain Socket 
+	and unique path by using the mkstemp() function call. This unique file name is also used to generate a unique port number 
+	to listen on. The ODR has a hardcoded path for its Domain Socket so all the clients can send message to it directly, while 
+	the ODR server responds back using each client's unique port number. When a client calls msg_receiv() it might time out, and 
+	this happens directly on the client itself rather than the ODR by using "select". The time client & time server were simple 
+	applications using the ODR to Client communication.  

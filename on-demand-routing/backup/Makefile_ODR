@@ -1,0 +1,18 @@
+
+CC = gcc
+
+LIBS = inc/hw_addrs.h
+
+FLAGS = -g -O2
+
+all: obj/get_hw_addrs.o obj/ODR.o
+	${CC} -o bin/ODR obj/ODR.o obj/get_hw_addrs.o ${LIBS}
+obj/get_hw_addrs.o: src/get_hw_addrs.c
+	${CC} ${FLAGS} -c src/get_hw_addrs.c
+
+obj/ODR.o: src/ODR.c
+	${CC} ${FLAGS} -c src/ODR.c
+
+clean:
+	rm bin/ODR obj/ODR.o obj/get_hw_addrs.o
+

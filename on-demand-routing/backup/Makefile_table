@@ -1,0 +1,32 @@
+# Define required macros here
+
+BASEDIR = .
+SRCDIR = $(BASEDIR)/src
+INCDIR = $(BASEDIR)/inc
+LIBDIR = $(BASEDIR)/lib
+OBJDIR = $(BASEDIR)/obj
+BINDIR = $(BASEDIR)/bin
+
+
+
+
+CXX=gcc
+CXXFLAGS = -g -Wall 
+TBL_OBJECTS = $(OBJDIR)/tableDDT.o \
+		$(OBJDIR)/main.o
+
+INCLUDES =  -I$(INCDIR) 
+LIBS = 	
+
+
+$(BINDIR)/tableManager: $(TBL_OBJECTS) 
+	$(CXX) $(CXXFLAGS) -o $(BINDIR)/tableManager $(INCLUDES) $(TBL_OBJECTS)  $(LIBS) 
+
+$(OBJDIR)/tableDDT.o: $(SRCDIR)/tableDDT.c
+		$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $(OBJDIR)/tableDDT.o $(SRCDIR)/tableDDT.c
+
+$(OBJDIR)/main.o: $(SRCDIR)/main.c
+		$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $(OBJDIR)/main.o $(SRCDIR)/main.c
+
+clean:
+	rm obj/*.o *core 
