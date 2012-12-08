@@ -1,0 +1,26 @@
+Group:
+Karthik Uthaman
+Shah Pavel Jamal
+
+Build instructions:
+      Unpack the contents into a directory, and type: make all
+      This will create the various binaries associated with our project, subsequently they are located in the ./bin/ directory.
+      *note: all .c files are located in /src
+      	     all .h files are located in /inc
+	     all .o files are located in /obj
+	     all binaries are located in /bin
+
+To run:
+	   Once you have deployed the built binaries to the various virtual machines you need to do the following on all non-source nodes:
+      	   Start the tour server by using the following command: tour_kuthaman
+	   Once the tour server is running all all the nodes you can than run the tour app on the source name with the command:
+			tour_kuthaman vm1 vm2 vm3
+		NOTE: The source VM cannot be part of the tour.
+		
+		You should see all the VM's involved receiving a mesage from each other and then start to PING the source node. Once all the nodes have been visited, every VM in the tour than sends broadcast messages. The application closes itself after 5 seconds.
+		
+Shah Pavel Jamal (Tour):
+	For the tour, I setup a select for listening to multiple sockets at the same time. I also gave it a very small timeout such that it can also be used to track of time such as PINGing every second and self terminating after 5 seconds. I was able to reuse code from previous hw for things like getting interface info. Everything else included building the packet for tour, ICMP request, Multicast request and sending them out. And then receiving them back using the same structure. I used Wireshark to verify the accuracy of the packets.
+	
+
+ARP:
