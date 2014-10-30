@@ -1,6 +1,5 @@
 Group 8:
 Richard Meester
-Shah Pavel Jamal
 Karthik Uthaman
 
 
